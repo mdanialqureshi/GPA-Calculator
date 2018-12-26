@@ -24,7 +24,7 @@ public class GPA implements ActionListener {
 	private JButton done;
 	private JButton reset;
 	private JLabel errorLabel;
-	private JButton instructions; 
+	private JButton instructions;
 	private JLabel instructionLabel;
 	private JButton hide;
 
@@ -81,7 +81,7 @@ public class GPA implements ActionListener {
 		input1.setBounds(50, 150, 50, 40);
 		input1.addActionListener(this);
 		mainPanel.add(input1);
-		
+
 		// creating GPA scale field
 		gpaScale = new JTextField("Enter GPA Scale");
 		gpaScale.addFocusListener(new FocusListener() { // input hint functionality for gpaScale input
@@ -92,16 +92,16 @@ public class GPA implements ActionListener {
 			public void focusLost(FocusEvent e) {
 			}
 		});
-		
+
 		gpaScale.setBounds(350, 75, 110, 50);
 		mainPanel.add(gpaScale);
 		gpaScale.addActionListener(this);
-		
+
 		creditInput1 = new JTextField();
 		creditInput1.setBounds(125, 150, 50, 40);
 		creditInput1.addActionListener(this);
 		mainPanel.add(creditInput1);
-		
+
 		JLabel gradeLabel = new JLabel();
 		gradeLabel.setText("Number Grade");
 		gradeLabel.setBounds(10, 125, 150, 30);
@@ -113,7 +113,7 @@ public class GPA implements ActionListener {
 		creditLabel.setFont(new Font("Arial", Font.BOLD, 13));
 		creditLabel.setBounds(125, 125, 100, 30);
 		mainPanel.add(creditLabel);
-		
+
 		outputLabel = new JLabel();
 		outputLabel.setText("");
 		outputLabel.setFont(new Font("Arial", Font.BOLD, 17));
@@ -126,13 +126,13 @@ public class GPA implements ActionListener {
 		done.setForeground(Color.RED);
 		done.addActionListener(this);
 		mainPanel.add(done);
-		
+
 		reset = new JButton("RESET");
-		reset.setBounds(150,200,100,40);
+		reset.setBounds(150, 200, 100, 40);
 		reset.setForeground(Color.red);
 		reset.addActionListener(this);
 		mainPanel.add(reset);
-		
+
 		errorLabel = new JLabel();
 		errorLabel.setText("Please fill in all provided boxes above.");
 		errorLabel.setFont(new Font("Arial", Font.BOLD, 17));
@@ -140,28 +140,28 @@ public class GPA implements ActionListener {
 		errorLabel.setBounds(100, 250, 350, 50);
 		errorLabel.setVisible(false);
 		mainPanel.add(errorLabel);
-		
+
 		JLabel scaleLabel = new JLabel();
 		scaleLabel.setText("GPA Scale:");
-		scaleLabel.setFont(new Font("Arial",Font.BOLD,16));
-		scaleLabel.setBounds(250,80,200,40);
+		scaleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+		scaleLabel.setBounds(250, 80, 200, 40);
 		mainPanel.add(scaleLabel);
-		
+
 		instructions = new JButton("HELP");
 		instructions.setForeground(Color.red);
-		instructions.setBounds(250,200,100,40);
+		instructions.setBounds(250, 200, 100, 40);
 		instructions.addActionListener(this);
 		mainPanel.add(instructions);
-		
+
 		instructionLabel = new JLabel();
-		instructionLabel.setText("<html>1.) Fill in GPA Scale." + "<br/>2.) Fill in Grades and corresponding " +
-		"Credits one by one and press enter." + "<br/>3.) Click done once all grades have been entered." + 
-				"<br/>4.) Click Reset if you wish to start over.</html>");
-		instructionLabel.setFont(new Font("Arial",Font.BOLD,14));
-		instructionLabel.setBounds(50,300,300,100);
+		instructionLabel.setText("<html>1.) Fill in GPA Scale." + "<br/>2.) Fill in Grades and corresponding "
+				+ "Credits one by one and press enter." + "<br/>3.) Click done once all grades have been entered."
+				+ "<br/>4.) Click Reset if you wish to start over.</html>");
+		instructionLabel.setFont(new Font("Arial", Font.BOLD, 14));
+		instructionLabel.setBounds(50, 300, 300, 100);
 		instructionLabel.setVisible(false);
 		mainPanel.add(instructionLabel);
-		
+
 		hide = new JButton();
 		hide.setText("Hide Instructions");
 		hide.setBounds(50, 410, 150, 40);
@@ -169,8 +169,7 @@ public class GPA implements ActionListener {
 		hide.addActionListener(this);
 		hide.setVisible(false);
 		mainPanel.add(hide);
-		
-		
+
 	}
 
 	@Override
@@ -179,28 +178,27 @@ public class GPA implements ActionListener {
 		boolean holder = false;// for gpaScale filled check
 		Double credit1 = 0.0;
 
-		if (source == done) { //done button functionality 
+		if (source == done) { // done button functionality
 			outputLabel.setText("Your GPA is " + gpaCalculation() + ", on a " + getGPAScale() + " scale.");
 			holder = true;
 		}
-		
-		if(source == reset) { //reset button functionality
+
+		if (source == reset) { // reset button functionality
 			this.grades.clear();
 			this.credits.clear();
 			outputLabel.setText("");
 			errorLabel.setText("");
 		}
-		
-		if(source == instructions) { //help button functionality
+
+		if (source == instructions) { // help button functionality
 			instructionLabel.setVisible(true);
 			hide.setVisible(true);
 		}
-		if(source == hide) { //hide button functionality
+		if (source == hide) { // hide button functionality
 			hide.setVisible(false);
 			instructionLabel.setVisible(false);
 		}
-		
-		
+
 		if (gpaScale.getText() != null && gpaScale.getText().length() > 0 && gpaScale.getText().matches("[0-9]+")
 				|| gpaScale.getText().matches("^-?\\d*\\.\\d+$")) {
 			holder = true;
@@ -212,22 +210,22 @@ public class GPA implements ActionListener {
 			errorLabel.setText("Please fill in all provided boxes above.");
 			errorLabel.setVisible(true);
 		}
-			
-			if (holder && creditInput1.getText() != null && creditInput1.getText().length() > 0
-					&& input1.getText() != null && input1.getText().length() > 0) { // check if all required inputs are
-																					// filled in or not
-				errorLabel.setText("");
-				credit1 = Double.parseDouble(creditInput1.getText());
-				creditInput1.setText("");
 
-				Double firstGrade = Double.parseDouble(input1.getText());
-				this.grades.add(firstGrade);
-				this.credits.add(credit1);
-				input1.setText("");
-			} else {
-				errorLabel.setText("Please fill in all provided boxes above.");
-				errorLabel.setVisible(true);
-			}
+		if (holder && creditInput1.getText() != null && creditInput1.getText().length() > 0 && input1.getText() != null
+				&& input1.getText().length() > 0) { // check if all required inputs are
+													// filled in or not
+			errorLabel.setText("");
+			credit1 = Double.parseDouble(creditInput1.getText());
+			creditInput1.setText("");
+
+			Double firstGrade = Double.parseDouble(input1.getText());
+			this.grades.add(firstGrade);
+			this.credits.add(credit1);
+			input1.setText("");
+		} else {
+			errorLabel.setText("Please fill in all provided boxes above.");
+			errorLabel.setVisible(true);
+		}
 
 	}
 
